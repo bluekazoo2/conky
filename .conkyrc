@@ -50,6 +50,11 @@ conky.text = [[
 ${color1}${time %B %d, %Y}${font Lucida Grande:size=8}${alignr}${color2}MX: ${execi 60 upower -i /org/freedesktop/UPower/devices/mouse_dev_C2_00_4B_26_61_C2 | grep percentage | tr -s ' ' | cut -d ' ' -f 3}
 ${color2}${font Arial Black:size=30}${time %H:%M}${font Lucida Grande:size=8}${alignr}${color2}${uptime_short}${color}
 
+${font Lucida Grande:size=8}WEATHER ${hr 2}
+
+${font}${color}${execi 60 cut -d "," -f 4 /tmp/weather.csv}
+${color2}${font Arial Black:size=30}${execi 60 printf "%i" $(cut -d "," -f 1 /tmp/weather.csv)}°${alignr}${font}${color}${execi 60 printf "%i" $(head -1 /tmp/weather_tmps.csv)}° / ${execi 60 printf "%i" $(tail -1 /tmp/weather_tmps.csv)}°${font}${color}
+
 ${font Lucida Grande:size=8}NETWORK ${hr 2}
 
 ${voffset 4}${font WIFI:size=14}z${font} VPN:${color}${alignr}${if_up gpd0}${addr gpd0}${else}---${endif}
