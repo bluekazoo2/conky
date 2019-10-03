@@ -1,6 +1,7 @@
 conky.config = {
 	use_xft = true,
 	font = 'Lucida Grande:size=12',
+	background = true,
 
 	update_interval = 2,
 	total_run_times = 0,
@@ -10,11 +11,11 @@ conky.config = {
 
 	own_window = true,
 	own_window_transparent = true,
-	own_window_type = 'desktop',
+	own_window_type = 'windowed',
 	own_window_argb_visual = true,
-	own_window_class = 'override',
+	own_window_class = 'Conky',
 
-	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_hints = 'undecorated',
 	double_buffer = true,
 	draw_shades = false,
 	draw_outline = false,
@@ -47,10 +48,11 @@ conky.config = {
 };
 
 conky.text = [[
-${color1}${time %B %d, %Y}${font Lucida Grande:size=8}${alignr}${color2}MX: ${execi 60 upower -i /org/freedesktop/UPower/devices/mouse_dev_C2_00_4B_26_61_C2 | grep percentage | tr -s ' ' | cut -d ' ' -f 3}
+${color1}${time %B %d, %Y}${font Lucida Grande:size=8}${alignr}${color2}MX: ${execi 600 upower -i /org/freedesktop/UPower/devices/mouse_hidpp_battery_0 | grep percentage | tr -s ' ' | cut -d ' ' -f 3}
 ${color2}${font Arial Black:size=30}${time %H:%M}${font Lucida Grande:size=8}${alignr}${color2}${uptime_short}${color}
+${font Lucida Grande:size=8}${tztime Europe/London %H:%M}${alignr}${tztime Europe/Bucharest %H:%M}
 
-${font Lucida Grande:size=8}WEATHER ${hr 2}
+${color}${font Lucida Grande:size=8}WEATHER ${hr 2}
 
 ${font}${color}${execi 60 cut -d "," -f 4 /tmp/weather.csv}
 ${color2}${font Arial Black:size=30}${execi 60 printf "%i" $(cut -d "," -f 1 /tmp/weather.csv)}°${alignr}${font}${color}${execi 60 printf "%i" $(head -1 /tmp/weather_tmps.csv)}° / ${execi 60 printf "%i" $(tail -1 /tmp/weather_tmps.csv)}°${font}${color}
@@ -64,8 +66,7 @@ ${voffset 4}${font PizzaDude Bullets:size=14}U${font} Dn: ${goto 60}${color1}${d
 
 ${font Lucida Grande:size=8}TEMPS ${hr 2}
 
-${color0}${font}${color}CPU: ${alignr}GPU:${color}
-${color2}${font Arial Black:size=30}${hwmon 1 temp 1}° ${alignr}${hwmon 4 temp 1}°${font}${color}
+${color0}${font}${color}CPU: ${color1}${font Liberation Sans:style=Bold:size=12}${hwmon 1 temp 1}°${color0}${font}${alignr}GPU: ${color1}${font Liberation Sans:style=Bold:size=12}${hwmon 4 temp 1}°${color}
 
 ${font Lucida Grande:size=8}SYSTEM ${hr 2}
 
@@ -100,8 +101,12 @@ ${template1 5}
 
 ${font Lucida Grande:size=8}MARKETS ${hr 2}
 
-${template2 DIA}
 ${template2 QQQ}
 ${template2 SPY}
+${template2 AMD}
 ${template2 TSLA}
+
+${font Lucida Grande:size=8}TODAY ${hr 2}
+
+${font}${execi 60 ~/bin/today.sh}
 ]];
