@@ -50,7 +50,7 @@ conky.config = {
 conky.text = [[
 ${color1}${time %B %d, %Y}${font Lucida Grande:size=8}${alignr}${color2}MX: ${execi 600 upower -i /org/freedesktop/UPower/devices/mouse_hidpp_battery_0 | grep percentage | tr -s ' ' | cut -d ' ' -f 3}
 ${color2}${font Arial Black:size=30}${time %H:%M}${font Lucida Grande:size=8}${alignr}${color2}${uptime_short}${color}
-${font Lucida Grande:size=8}${tztime Europe/London %H:%M}${alignr}${tztime Europe/Bucharest %H:%M}
+${font Lucida Grande:size=8}${tztime America/Los_Angeles %H:%M}${goto 100}${tztime Europe/London %H:%M}${alignr}${tztime Europe/Bucharest %H:%M}
 
 ${color}${font Lucida Grande:size=8}WEATHER ${hr 2}
 
